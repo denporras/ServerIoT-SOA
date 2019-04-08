@@ -12,9 +12,17 @@ function createUserRoutes(server) {
     {
       method: "GET",
       path: "/api/v1/users/login",
-      handler: function (request, reply) {
+      handler: async (request, reply) => {
         const { username, password } = request.query;
-        return User.find({ username, password });
+        var response
+        await User.find({ username, password }).then(res => {
+          if (res.length == 1) {
+            response = { login: true }
+          } else {
+            response = { login: false }
+          }
+        });
+        return response
       }
     },
     {
@@ -27,7 +35,7 @@ function createUserRoutes(server) {
           username: username,
           password: password
         });
-        return User.save();
+        return user.save();
       }
     }
   ]);
