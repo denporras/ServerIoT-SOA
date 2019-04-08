@@ -1,14 +1,13 @@
 "use strict";
 
-// Change this to "import Hapi from "hapi""
 const Hapi = require("hapi");
 const mongoose = require("mongoose")
 const mqtt = require('mqtt');
 
 const createEnvironmentRoutes = require('./api/v1/environment/')
 const createUserRoutes = require('./api/v1/user/')
+const createWindowRoutes = require('./api/v1/window/')
 
-// Create a server with a host and port
 const server = Hapi.server({
   host: "localhost",
   port: 8080
@@ -24,9 +23,9 @@ const options = {
 const mqttSubscriber = mqtt.connect('tcp://m16.cloudmqtt.com', options);
 
 createEnvironmentRoutes(server, mqttSubscriber);
+createWindowRoutes(server, mqttSubscriber);
 createUserRoutes(server);
 
-// Add the route
 server.route({
   method: "GET",
   path: "/start",
