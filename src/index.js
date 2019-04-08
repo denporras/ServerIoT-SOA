@@ -7,6 +7,7 @@ const mqtt = require('mqtt');
 const createEnvironmentRoutes = require('./api/v1/environment/')
 const createUserRoutes = require('./api/v1/user/')
 const createWindowRoutes = require('./api/v1/window/')
+const createAlarmRoutes = require('./api/v1/alarm/')
 
 const server = Hapi.server({
   host: "localhost",
@@ -22,6 +23,7 @@ const options = {
 
 const mqttSubscriber = mqtt.connect('tcp://m16.cloudmqtt.com', options);
 
+createAlarmRoutes(server, mqttSubscriber);
 createEnvironmentRoutes(server, mqttSubscriber);
 createWindowRoutes(server, mqttSubscriber);
 createUserRoutes(server);
