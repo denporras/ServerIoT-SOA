@@ -6,7 +6,7 @@ function createEnvironmentRoutes(server, mqttSubscriber) {
       method: "GET",
       path: "/api/v1/environments",
       handler: function (request, reply) {
-        return Environment.findOne().sort({ date: -1 }).limit(30);
+        return Environment.find().sort({ date: -1 }).limit(30);
       }
     },
     {
