@@ -10,8 +10,8 @@ const createWindowRoutes = require('./api/v1/window/')
 const createAlarmRoutes = require('./api/v1/alarm/')
 
 const server = Hapi.server({
-  host: "localhost",
-  port: 8080
+  port: 8080,
+  routes: { cors: true }
 });
 
 const options = {
